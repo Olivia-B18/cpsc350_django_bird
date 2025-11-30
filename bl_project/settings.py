@@ -31,6 +31,14 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # my apps
+    "bird_logs",
+    "accounts",
+
+    # third party apps
+    "django_bootstrap5",
+
+    # default Django apps
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -120,3 +128,8 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# my settings
+LOGIN_REDIRECT_URL = 'bird_logs:index'
+LOGOUT_REDIRECT_URL = 'bird_logs:index'
+LOGIN_URL = 'accounts:login'
