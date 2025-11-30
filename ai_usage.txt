@@ -1,4 +1,26 @@
-Things I used AI (Claude Code) for:
+Imma be so real with you, Josh:
+I don't really know how to code in django or in html
+as much as I would like to. Ideally, I would know 
+both syntaxes as fluently as I know Python and be able
+to code off the top of my head, but we didn't go over
+that very much.
+
+So, unless it was in the PCC 18-20 chapters, I used
+Claude Code to write up code for me. I have been co-
+developing with AI for the last few months a lot and
+have gotten really good at prompting it. Moreover,
+Claude Code is just the best coding AI I have used
+because the code it writes often works first try.
+It might not be the most secure code, but it works
+for my purposes for now.
+
+So, I ask it questions like "how do I add a drop down menu
+that sorts birds on the Birds page in alphabetical order
+or most recently added" because it is much faster than
+looking up documentation or sifting through forums.
+
+More specifically, this is what I asked Claude Code
+for help with:
 
 1. Debugging
 
@@ -27,4 +49,4 @@ Things I used AI (Claude Code) for:
    on the selected filter from the dropdown menu
  - urls.py includes a path to get_statistics.html
 
-
+6. Using django_bootstrap5 to make the database prettier
