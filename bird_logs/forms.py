@@ -4,9 +4,9 @@ from .models import Bird, Entry
 
 class BirdForm(forms.ModelForm):
     class Meta:
-        model = Bird 
-        fields = ['text']
-        labels = {'text': ''}
+        model = Bird
+        fields = ['text', 'main_color']
+        labels = {'text': '', 'main_color': 'Main Color'}
 
 class EntryForm(forms.ModelForm):
     class Meta:

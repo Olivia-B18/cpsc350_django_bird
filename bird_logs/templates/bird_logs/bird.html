@@ -3,6 +3,8 @@
 {% block content %}
 
   <p>Bird: {{ bird.text }}</p>
+  <p>Main Color: {{ bird.get_main_color_display }}</p>
+  <p><a href="{% url 'bird_logs:edit_bird' bird.id %}">Edit bird</a></p>
 
   <p>Entries:</p>
   <p>

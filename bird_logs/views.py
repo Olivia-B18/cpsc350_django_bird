@@ -96,3 +96,23 @@ def edit_entry(request, entry_id):
 
     context = {'entry': entry, 'bird': bird, 'form': form}
     return render(request, 'bird_logs/edit_entry.html', context)
+
+@login_required
+def edit_bird(request, bird_id):
+    """Edit a bird's details."""
+    bird = Bird.objects.get(id=bird_id)
+    if bird.owner != request.user:
+        raise Http404
+
+    if request.method != 'POST':
+        # Initial request; pre-fill form with the current bird.
+        form = BirdForm(instance=bird)
+    else:
+        # POST data submitted; process data.
+        form = BirdForm(instance=bird, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('bird_logs:bird', bird_id=bird.id)
+
+    context = {'bird': bird, 'form': form}
+    return render(request, 'bird_logs/edit_bird.html', context)

@@ -5,9 +5,26 @@ from django.contrib.auth.models import User
 
 class Bird(models.Model):
     """A bird the user wants to record."""
+
+    COLOR_CHOICES = [
+        ('black', 'Black'),
+        ('white', 'White'),
+        ('brown', 'Brown'),
+        ('gray', 'Gray'),
+        ('red', 'Red'),
+        ('orange', 'Orange'),
+        ('yellow', 'Yellow'),
+        ('green', 'Green'),
+        ('blue', 'Blue'),
+        ('purple', 'Purple'),
+        ('pink', 'Pink'),
+        ('mixed', 'Mixed/Multiple'),
+    ]
+
     text = models.CharField(max_length=200)
     date_added = models.DateTimeField(auto_now_add=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    main_color = models.CharField(max_length=20, choices=COLOR_CHOICES, default='mixed')
 
     def __str__(self):
         """Return a string representation of the model."""

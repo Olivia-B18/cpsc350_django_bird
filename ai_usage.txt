@@ -1,0 +1,9 @@
+Things I used AI (Claude Code) for:
+
+1. Debugging
+
+2. Adding a sort filter 
+ - views.py now includes code to parse a selected filter
+ - birds.html now includes GET request and dropdown to choose a filter
+
+3. 
