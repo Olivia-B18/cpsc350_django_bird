@@ -1,0 +1,14 @@
+{% extends "bird_logs/base.html" %}
+
+{% block content %}
+
+    <p><a href="{% url 'bird_logs:bird' bird.id %}">{{ bird }}</a></p>
+
+    <p>Add a new entry:</p>
+    <form action="{% url 'bird_logs:new_entry' bird.id %}" method='post'>
+        {% csrf_token %}
+        {{ form.as_div }}
+        <button name='submit'>Add entry</button>
+    </form>
+
+{% endblock content %}%

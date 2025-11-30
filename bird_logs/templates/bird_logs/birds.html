@@ -1,0 +1,20 @@
+{% extends 'bird_logs/base.html' %}
+
+{% block content %}
+
+  <p>Birds</p>
+
+  <ul>
+    {% for bird in birds %}
+      <li>
+        <a href="{% url 'bird_logs:bird' bird.id %}">
+        {{ bird.text }}</a>
+      </li>
+    {% empty %}
+    <li>No birds have been added yet.</li>
+    {% endfor %}
+  </ul>
+
+  <a href="{% url 'bird_logs:new_bird' %}">Add a new bird</a>
+
+{% endblock content %}
