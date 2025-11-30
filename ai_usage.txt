@@ -3,7 +3,28 @@ Things I used AI (Claude Code) for:
 1. Debugging
 
 2. Adding a sort filter 
- - views.py now includes code to parse a selected filter
- - birds.html now includes GET request and dropdown to choose a filter
+ - views.py now includes code in birds() to parse and
+   select a filter order
+ - birds.html now includes GET request and dropdown to
+   choose a filter
 
-3. 
+3. Adding functionality to delete a bird
+ - views.py now includes delete_bird() to delete a bird
+ - urls.py includes the path to the delete_bird() function
+ - delete_bird.html renders the confirmation page
+ - edit_bird.html has a button to begin deleting a bird
+
+4. Prevent duplicate birds for a single user
+ - forms.py has a clean_text() function for BirdForm that
+   throws an error when a duplicate Bird is being submitted
+ - views.py functions new_bird() and edit_bird() now pass
+   the user as an argument to the BirdForm
+
+5. Statistics Page
+ - views.py now includes get_statistics() to parse and select
+   which statistics to display
+ - get_statistics.html renders a table of statistics based
+   on the selected filter from the dropdown menu
+ - urls.py includes a path to get_statistics.html
+
+

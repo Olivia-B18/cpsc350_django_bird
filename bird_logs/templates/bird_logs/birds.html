@@ -9,8 +9,11 @@
   <select name="sort" id="sort" onchange="this.form.submit()">
     <option value="alphabetical" {% if current_sort == 'alphabetical' %}selected{% endif %}>Alphabetical</option>
     <option value="date_added" {% if current_sort == 'date_added' %}selected{% endif %}>Most Recently Added</option>
+    <option value="most_sightings" {% if current_sort == 'most_sightings' %}selected{% endif %}>Most Sightings</option>
   </select>
 </form>
+
+<a href="{% url 'bird_logs:statistics' %}">Statistics</a>
 
 <ul>
   {% for bird in birds %}

@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
+from django.db.models import Count
 
 from .models import Bird, Sighting
 from .forms import BirdForm, SightingForm
@@ -13,14 +14,16 @@ def index(request):
 def birds(request):
     """show all birds"""
     sort = request.GET.get('sort', 'alphabetical')
-  
-    # sort by date_added
+
     if sort == 'date_added':
         birds = Bird.objects.filter(owner=request.user).order_by('-date_added')
-    # sort by alphabetical order (default)
-    else:
+    elif sort == 'most_sightings':
+        birds = Bird.objects.filter(owner=request.user).annotate(
+            sighting_count=Count('sighting')
+        ).order_by('-sighting_count')
+    else:  # alphabetical (default)
         birds = Bird.objects.filter(owner=request.user).order_by('text')
-  
+
     context = {'birds': birds, 'current_sort': sort}
     return render(request, 'bird_logs/birds.html', context)
 
@@ -41,10 +44,10 @@ def new_bird(request):
     """Add a new bird."""
     if request.method != 'POST':
         # No data submitted; create a blank form.
-        form = BirdForm()
+        form = BirdForm(user=request.user)
     else:
         # POST data submitted; process data.
-        form = BirdForm(data=request.POST)
+        form = BirdForm(data=request.POST, user=request.user)
         if form.is_valid():
             new_bird = form.save(commit=False)
             new_bird.owner = request.user
@@ -106,13 +109,49 @@ def edit_bird(request, bird_id):
 
     if request.method != 'POST':
         # Initial request; pre-fill form with the current bird.
-        form = BirdForm(instance=bird)
+        form = BirdForm(instance=bird, user=request.user)
     else:
         # POST data submitted; process data.
-        form = BirdForm(instance=bird, data=request.POST)
+        form = BirdForm(instance=bird, data=request.POST, user=request.user)
         if form.is_valid():
             form.save()
             return redirect('bird_logs:bird', bird_id=bird.id)
 
     context = {'bird': bird, 'form': form}
     return render(request, 'bird_logs/edit_bird.html', context)
+
+@login_required
+def delete_bird(request, bird_id):
+    """Delete a bird."""
+    bird = Bird.objects.get(id=bird_id)
+    if bird.owner != request.user:
+        raise Http404
+
+    if request.method == 'POST':
+        bird.delete()
+        return redirect('bird_logs:birds')
+
+    context = {'bird': bird}
+    return render(request, 'bird_logs/delete_bird.html', context)
+
+@login_required
+def get_statistics(request):
+    """Show statistics on a user's birds."""
+
+    # establish default sort
+    sort = request.GET.get('sort', 'colors')
+
+    if sort == 'sightings':
+        counts = Bird.objects.filter(owner=request.user).annotate(sighting_count=Count('sighting')).order_by('-sighting_count')
+    else:
+        # get counts of colors for each bird (default)
+        counts = Bird.objects.filter(owner=request.user).values('main_color').annotate(count=Count('main_color')).order_by('-count')
+
+        # Convert color codes to display names
+        color_display = dict(Bird.COLOR_CHOICES)
+        for item in counts:
+            item['color_name'] = color_display.get(item['main_color'],
+                                                   item['main_color'])
+
+    context = {'counts': counts, 'current_sort': sort}
+    return render(request, 'bird_logs/get_statistics.html', context)

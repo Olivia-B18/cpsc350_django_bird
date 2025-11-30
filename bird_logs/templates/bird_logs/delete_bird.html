@@ -1,0 +1,14 @@
+{% extends "bird_logs/base.html" %}
+
+{% block content %}
+
+  <p>Are you sure you want to delete "{{ bird.text }}"?</p>
+  <p>This will also delete all sightings for this bird.</p>
+
+  <form action="{% url 'bird_logs:delete_bird' bird.id %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Yes, delete</button>
+    <a href="{% url 'bird_logs:edit_bird' bird.id %}">Cancel</a>
+  </form>
+
+{% endblock content %}

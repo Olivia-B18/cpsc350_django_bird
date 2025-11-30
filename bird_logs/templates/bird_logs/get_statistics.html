@@ -1,0 +1,53 @@
+{% extends 'bird_logs/base.html' %}
+
+{% block content %}
+
+<p><a href="{% url 'bird_logs:birds' %}">Back to Birds</a></p>
+
+<p>Statistics</p>
+
+<form method="get">
+  <label for="sort">View:</label>
+  <select name="sort" id="sort" onchange="this.form.submit()">
+    <option value="colors" {% if current_sort == 'colors' %}selected{% endif %}>Colors</option>
+    <option value="sightings" {% if current_sort == 'sightings' %}selected{% endif %}>Sightings per Bird</option>
+  </select>
+</form>
+
+{% if current_sort == 'sightings' %}
+<table>
+  <tr>
+    <th>Bird</th>
+    <th>Sightings</th>
+  </tr>
+  {% for bird in counts %}
+  <tr>
+    <td>{{ bird.text }}</td>
+    <td>{{ bird.sighting_count }}</td>
+  </tr>
+  {% empty %}
+  <tr>
+    <td colspan="2">No birds have been added yet.</td>
+  </tr>
+  {% endfor %}
+</table>
+{% else %}
+<table>
+  <tr>
+    <th>Color</th>
+    <th>Count</th>
+  </tr>
+  {% for item in counts %}
+  <tr>
+    <td>{{ item.color_name }}</td>
+    <td>{{ item.count }}</td>
+  </tr>
+  {% empty %}
+  <tr>
+    <td colspan="2">No birds have been added yet.</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endif %}
+
+{% endblock content %}

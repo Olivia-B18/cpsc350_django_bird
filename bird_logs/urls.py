@@ -27,4 +27,9 @@ urlpatterns = [
     # Page for editing a bird.
     path('edit_bird/<int:bird_id>/', views.edit_bird, name='edit_bird'),
 
+    # Page for deleting a bird.
+    path('delete_bird/<int:bird_id>/', views.delete_bird, name='delete_bird'),
+
+    # Page for statistics on a user's birds.
+    path('statistics/', views.get_statistics, name='statistics'),
 ]

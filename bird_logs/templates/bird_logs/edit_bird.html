@@ -12,4 +12,6 @@
         <button name="submit">Save changes</button>
     </form>
 
+  <p><a href="{% url 'bird_logs:delete_bird' bird.id %}">Delete this bird</a></p>
+
 {% endblock content %}

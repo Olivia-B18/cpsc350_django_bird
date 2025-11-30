@@ -11,6 +11,21 @@ class BirdForm(forms.ModelForm):
                   'description': 'Description',
                   }
 
+    def __init__(self, *args, user=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.user = user
+
+    def clean_text(self):
+        text = self.cleaned_data.get('text')
+        # Check for duplicate bird name for this user
+        existing = Bird.objects.filter(owner=self.user, text=text)
+        # If editing, exclude the current bird from the check
+        if self.instance.pk:
+            existing = existing.exclude(pk=self.instance.pk)
+        if existing.exists():
+            raise forms.ValidationError('You already have a bird with this name.')
+        return text
+
 class SightingForm(forms.ModelForm):
     class Meta:
         model = Sighting

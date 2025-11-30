@@ -25,6 +25,9 @@ class Bird(models.Model):
     main_color = models.CharField(max_length=20, choices=COLOR_CHOICES, default='mixed')
     description = models.TextField()
 
+    class Meta:
+        unique_together = ['text', 'owner']
+
     def __str__(self):
         """Return a string representation of the model."""
         return self.text
