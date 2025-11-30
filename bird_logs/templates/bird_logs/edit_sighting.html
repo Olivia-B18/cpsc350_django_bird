@@ -4,9 +4,9 @@
 
   <p><a href="{% url 'bird_logs:bird' bird.id %}">{{ bird }}</a></p>
 
-  <p>Edit entry:</p>
+  <p>Edit sighting:</p>
 
-    <form action="{% url 'bird_logs:edit_entry' entry.id %}" method='post'>
+    <form action="{% url 'bird_logs:edit_sighting' sighting.id %}" method='post'>
         {% csrf_token %}
         {{ form.as_div }}
         <button name="submit">Save changes</button>

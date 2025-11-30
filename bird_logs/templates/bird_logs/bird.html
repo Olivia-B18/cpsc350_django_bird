@@ -3,24 +3,26 @@
 {% block content %}
 
   <p>Bird: {{ bird.text }}</p>
-  <p>Main Color: {{ bird.get_main_color_display }}</p>
   <p><a href="{% url 'bird_logs:edit_bird' bird.id %}">Edit bird</a></p>
+  <p>Main Color: {{ bird.get_main_color_display }}</p>
+  <p>Description:</p>
+  <p>{{ bird.description }}</p>
 
-  <p>Entries:</p>
+  <p>Sightings:</p>
   <p>
-    <a href="{% url 'bird_logs:new_entry' bird.id %}">Add new entry</a>
+    <a href="{% url 'bird_logs:new_sighting' bird.id %}">Add new sighting</a>
   </p>
   <ul>
-    {% for entry in entries %}
+    {% for sighting in sightings %}
       <li>
-        <p>{{ entry.date_added|date:'M d, Y H:i' }}</p>
-        <p>{{ entry.text|linebreaks }}</p>
+        <p>{{ sighting.sighting_date|date:'M d, Y' }}</p>
+        <p>{{ sighting.text|linebreaks }}</p>
         <p>
-          <a href="{% url 'bird_logs:edit_entry' entry.id %}">
-           Edit entry</a></p>
+          <a href="{% url 'bird_logs:edit_sighting' sighting.id %}">
+           Edit sighting</a></p>
       </li>
     {% empty %}
-      <li>There are no entries for this bird yet.</li>
+      <li>There are no sightings for this bird yet.</li>
     {% endfor %}
   </ul>
 

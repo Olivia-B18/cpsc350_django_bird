@@ -18,11 +18,11 @@ urlpatterns = [
     # Page for adding a new bird.
     path('new_bird/', views.new_bird, name='new_bird'),
 
-    # Page for adding a new entry.
-    path('new_entry/<int:bird_id>/', views.new_entry, name='new_entry'),
+    # Page for adding a new sighting.
+    path('new_sighting/<int:bird_id>/', views.new_sighting, name='new_sighting'),
 
-    # Page for editing an entry.
-    path('edit_entry/<int:entry_id>/', views.edit_entry, name='edit_entry'),
+    # Page for editing an sighting.
+    path('edit_sighting/<int:sighting_id>/', views.edit_sighting, name='edit_sighting'),
 
     # Page for editing a bird.
     path('edit_bird/<int:bird_id>/', views.edit_bird, name='edit_bird'),
