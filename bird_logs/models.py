@@ -23,7 +23,7 @@ class Bird(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     main_color = models.CharField(max_length=20, choices=COLOR_CHOICES, default='mixed')
-    description = models.TextField()
+    description = models.TextField(blank=True)
 
     class Meta:
         unique_together = ['text', 'owner']

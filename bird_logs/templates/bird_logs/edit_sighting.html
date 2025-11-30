@@ -2,13 +2,14 @@
 
 {% block content %}
 
-  <p><a href="{% url 'bird_logs:bird' bird.id %}">{{ bird }}</a></p>
+  <p><a href="{% url 'bird_logs:bird' bird.id %}">Back to {{ bird }}</a></p>
 
   <p>Edit sighting:</p>
 
     <form action="{% url 'bird_logs:edit_sighting' sighting.id %}" method='post'>
         {% csrf_token %}
         {{ form.as_div }}
+        <br>
         <button name="submit">Save changes</button>
     </form>
 

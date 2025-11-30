@@ -1,12 +1,16 @@
 {% extends "bird_logs/base.html" %}
 
+{% block page_header %}
+  <h1>Registration</h1>
+{% endblock page_header %}
+
 {% block content %}
 
   <form action="{% url 'accounts:register' %}" method='post'>
     {% csrf_token %}
     {{ form.as_div }}
-
+    <br>
     <button name="submit">Register</button>
   </form>
 
-{% endblock content %}%
+{% endblock content %}

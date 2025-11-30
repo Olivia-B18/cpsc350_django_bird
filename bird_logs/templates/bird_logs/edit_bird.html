@@ -2,16 +2,18 @@
 
 {% block content %}
 
-  <p><a href="{% url 'bird_logs:bird' bird.id %}">{{ bird }}</a></p>
+  <p><a href="{% url 'bird_logs:bird' bird.id %}">Back to {{ bird }}</a></p>
 
-  <p>Edit bird:</p>
+  <p>Edit the information for your bird:</p>
 
     <form action="{% url 'bird_logs:edit_bird' bird.id %}" method='post'>
         {% csrf_token %}
         {{ form.as_div }}
+        <br>
         <button name="submit">Save changes</button>
     </form>
 
-  <p><a href="{% url 'bird_logs:delete_bird' bird.id %}">Delete this bird</a></p>
+  <br>
+  <p><a href="{% url 'bird_logs:delete_bird' bird.id %}"><button>Delete this bird</button></a></p>
 
 {% endblock content %}

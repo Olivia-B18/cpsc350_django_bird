@@ -1,29 +1,40 @@
 {% extends 'bird_logs/base.html' %}
 
-{% block content %}
+{% block page_header %}
+  <h1>{{ bird.text }}</h1>
+{% endblock page_header %}
 
-  <p>Bird: {{ bird.text }}</p>
+{% block content %}
   <p><a href="{% url 'bird_logs:edit_bird' bird.id %}">Edit bird</a></p>
-  <p>Main Color: {{ bird.get_main_color_display }}</p>
-  <p>Description:</p>
+
+  <br>
+  <h2>Main Color</h2>
+  <hr>
+  <p>{{ bird.get_main_color_display }}</p>
+
+  <br>
+  <h2>Description</h2>
+  <hr>
   <p>{{ bird.description }}</p>
 
-  <p>Sightings:</p>
-  <p>
-    <a href="{% url 'bird_logs:new_sighting' bird.id %}">Add new sighting</a>
-  </p>
-  <ul>
-    {% for sighting in sightings %}
-      <li>
-        <p>{{ sighting.sighting_date|date:'M d, Y' }}</p>
-        <p>{{ sighting.text|linebreaks }}</p>
-        <p>
-          <a href="{% url 'bird_logs:edit_sighting' sighting.id %}">
-           Edit sighting</a></p>
-      </li>
-    {% empty %}
-      <li>There are no sightings for this bird yet.</li>
-    {% endfor %}
-  </ul>
+  <br>
+  <h2>Sightings</h2>
+  <hr>
+  <p><a href="{% url 'bird_logs:new_sighting' bird.id %}">Add new sighting</a></p>
+
+  {% for sighting in sightings %}
+    <div class="card mb-3">
+      <!-- Card header with timestamp and edit link -->
+      <h5 class="card-header">
+        {{ sighting.sighting_date|date:'M d, Y' }}
+        <small><a href="{% url 'bird_logs:edit_sighting' sighting.id %}">
+           [edit sighting]</a></small>
+      </h5>
+      <!-- Card body with sighting text -->
+      <div class="card-body">{{ sighting.text|linebreaks }}</div>
+    </div>
+  {% empty %}
+    <p>There are no sightings for this bird yet.</p>
+  {% endfor %}
 
 {% endblock content %}

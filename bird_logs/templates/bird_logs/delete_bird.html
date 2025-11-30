@@ -2,13 +2,15 @@
 
 {% block content %}
 
+  <p><a href="{% url 'bird_logs:bird' bird.id %}">Back to {{ bird }}</a></p>
+
   <p>Are you sure you want to delete "{{ bird.text }}"?</p>
   <p>This will also delete all sightings for this bird.</p>
 
   <form action="{% url 'bird_logs:delete_bird' bird.id %}" method="post">
     {% csrf_token %}
+    <a href="{% url 'bird_logs:edit_bird' bird.id %}"><button>Cancel</button></a>
     <button type="submit">Yes, delete</button>
-    <a href="{% url 'bird_logs:edit_bird' bird.id %}">Cancel</a>
   </form>
 
 {% endblock content %}

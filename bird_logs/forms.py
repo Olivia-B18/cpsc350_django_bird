@@ -6,7 +6,7 @@ class BirdForm(forms.ModelForm):
     class Meta:
         model = Bird
         fields = ['text', 'main_color', 'description']
-        labels = {'text': '',
+        labels = {'text': 'Name',
                   'main_color': 'Main Color',
                   'description': 'Description',
                   }

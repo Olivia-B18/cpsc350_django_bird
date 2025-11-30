@@ -130,6 +130,6 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # my settings
-LOGIN_REDIRECT_URL = 'bird_logs:index'
+LOGIN_REDIRECT_URL = 'bird_logs:birds'
 LOGOUT_REDIRECT_URL = 'bird_logs:index'
 LOGIN_URL = 'accounts:login'
