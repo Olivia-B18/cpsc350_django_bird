@@ -12,8 +12,16 @@ def index(request):
 @login_required
 def birds(request):
     """show all birds"""
-    birds = Bird.objects.filter(owner=request.user).order_by('date_added')
-    context = {'birds': birds}
+    sort = request.GET.get('sort', 'alphabetical')
+  
+    # sort by date_added
+    if sort == 'date_added':
+        birds = Bird.objects.filter(owner=request.user).order_by('-date_added')
+    # sort by alphabetical order (default)
+    else:
+        birds = Bird.objects.filter(owner=request.user).order_by('text')
+  
+    context = {'birds': birds, 'current_sort': sort}
     return render(request, 'bird_logs/birds.html', context)
 
 @login_required

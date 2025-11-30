@@ -2,19 +2,27 @@
 
 {% block content %}
 
-  <p>Birds</p>
+<p>Birds</p>
 
-  <ul>
-    {% for bird in birds %}
-      <li>
-        <a href="{% url 'bird_logs:bird' bird.id %}">
-        {{ bird.text }}</a>
-      </li>
-    {% empty %}
-    <li>No birds have been added yet.</li>
-    {% endfor %}
-  </ul>
+<form method="get">
+  <label for="sort">Sort by:</label>
+  <select name="sort" id="sort" onchange="this.form.submit()">
+    <option value="alphabetical" {% if current_sort == 'alphabetical' %}selected{% endif %}>Alphabetical</option>
+    <option value="date_added" {% if current_sort == 'date_added' %}selected{% endif %}>Most Recently Added</option>
+  </select>
+</form>
 
-  <a href="{% url 'bird_logs:new_bird' %}">Add a new bird</a>
+<ul>
+  {% for bird in birds %}
+    <li>
+      <a href="{% url 'bird_logs:bird' bird.id %}">
+      {{ bird.text }}</a>
+    </li>
+  {% empty %}
+  <li>No birds have been added yet.</li>
+  {% endfor %}
+</ul>
+
+<a href="{% url 'bird_logs:new_bird' %}">Add a new bird</a>
 
 {% endblock content %}
